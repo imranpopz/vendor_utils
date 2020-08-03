@@ -90,7 +90,7 @@ else
   git clone --quiet --progress https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
 fi
 
-if [[ -n ${USE_SECRET_BOOTABLE} ]]; then
+if [[ ! -z ${USE_SECRET_BOOTABLE} ]]; then
   # ONLY FOR CORE DEVS
   if [[ -n ${PBRP_BRANCH} ]]; then
     unset PBRP_BRANCH
@@ -100,13 +100,13 @@ if [[ -n ${USE_SECRET_BOOTABLE} ]]; then
   fi
   rm -rf bootable/recovery
   git clone --quiet --progress https://$GitHubName:$GITHUB_TOKEN@github.com/PitchBlackRecoveryProject/pbrp_recovery_secrets -b ${SECRET_BR} --single-branch bootable/recovery
-elif [[ -n ${PBRP_BRANCH} ]]; then
+elif [[ ! -z ${PBRP_BRANCH} ]]; then
   # FOR EVERYBODY
   rm -rf bootable/recovery
   git clone --quiet --progress https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
 fi
 
-if [[ -n $EXTRA_CMD ]]; then
+if [[ ! -z $EXTRA_CMD ]]; then
   eval "$EXTRA_CMD"
   cd /home/builder/android/
 fi
@@ -117,9 +117,9 @@ echo -e "\n" && ls -lA .
 echo -e "\nPreparing Delicious Lunch..."
 export ALLOW_MISSING_DEPENDENCIES=true
 source build/envsetup.sh
-if [[ -n $BUILD_LUNCH ]]; then
+if [[ ! -z $BUILD_LUNCH ]]; then
   lunch ${BUILD_LUNCH}
-elif [[ -n $FLAVOR ]]; then
+elif [[ ! -z $FLAVOR ]]; then
   lunch omni_${CODENAME}-${FLAVOR}
 fi
 
