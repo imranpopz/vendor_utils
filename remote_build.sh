@@ -106,7 +106,7 @@ elif [ ! -z "${PBRP_BRANCH}" ]; then
   git clone --quiet --progress https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
 fi
 
-if [[ ! -z $EXTRA_CMD ]]; then
+if [ ! -z "$EXTRA_CMD" ]; then
   eval "$EXTRA_CMD"
   cd /home/builder/android/
 fi
@@ -117,9 +117,9 @@ echo -e "\n" && ls -lA .
 echo -e "\nPreparing Delicious Lunch..."
 export ALLOW_MISSING_DEPENDENCIES=true
 source build/envsetup.sh
-if [[ ! -z $BUILD_LUNCH ]]; then
+if [ ! -z "$BUILD_LUNCH" ]; then
   lunch ${BUILD_LUNCH}
-elif [[ ! -z $FLAVOR ]]; then
+elif [ ! -z "$FLAVOR" ]; then
   lunch omni_${CODENAME}-${FLAVOR}
 fi
 
