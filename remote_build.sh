@@ -92,7 +92,7 @@ fi
 
 if [ ! -z "${USE_SECRET_BOOTABLE}" ]; then
   # ONLY FOR CORE DEVS
-  if [[ -n ${PBRP_BRANCH} ]]; then
+  if [ -n "${PBRP_BRANCH}" ]; then
     unset PBRP_BRANCH
   fi
   if [ ! -z "${SECRET_BR}" ]; then
@@ -100,7 +100,7 @@ if [ ! -z "${USE_SECRET_BOOTABLE}" ]; then
   fi
   rm -rf bootable/recovery
   git clone --quiet --progress https://$GitHubName:$GITHUB_TOKEN@github.com/PitchBlackRecoveryProject/pbrp_recovery_secrets -b ${SECRET_BR} --single-branch bootable/recovery
-elif [[ ! -z ${PBRP_BRANCH} ]]; then
+elif [ ! -z "${PBRP_BRANCH}" ]; then
   # FOR EVERYBODY
   rm -rf bootable/recovery
   git clone --quiet --progress https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
