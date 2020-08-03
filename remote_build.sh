@@ -90,12 +90,12 @@ else
   git clone --quiet --progress https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
 fi
 
-if [[ ! -z ${USE_SECRET_BOOTABLE} ]]; then
+if [ ! -z "${USE_SECRET_BOOTABLE}" ]; then
   # ONLY FOR CORE DEVS
   if [[ -n ${PBRP_BRANCH} ]]; then
     unset PBRP_BRANCH
   fi
-  if [[ -z ${SECRET_BR} ]]; then
+  if [ ! -z "${SECRET_BR}" ]; then
     SECRET_BR="android-9.0"
   fi
   rm -rf bootable/recovery
