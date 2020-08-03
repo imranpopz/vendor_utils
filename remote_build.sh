@@ -81,7 +81,7 @@ kill -s SIGTERM $(cat /tmp/keepalive.pid)
 rm -rf development/apps/ development/samples/ packages/apps/
 
 # Hax for fixing building with less complexity
-cp vendor/utils/pb_build.sh vendor/pb && chmod +x vendor/pb/pb_build.sh
+#cp vendor/utils/pb_build.sh vendor/pb && chmod +x vendor/pb/pb_build.sh
 
 echo -e "\nGetting the Device Tree on place"
 if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]]; then
