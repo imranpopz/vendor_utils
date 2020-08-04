@@ -141,7 +141,7 @@ export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
 
 mkdir ${UPLOAD_PATH}
 
-if [[ -n ${BUILD_FILE_TAR} ]]; then
+if [ -n "${BUILD_FILE_TAR}" ]; then
   echo "Samsung's Odin Tar available: $BUILD_FILE_TAR"
   cp ${BUILD_FILE_TAR} ${UPLOAD_PATH}
 fi
