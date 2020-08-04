@@ -154,10 +154,10 @@ if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]] && [ -n "$B
     export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     cp $BUILDFILE $UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Latest Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
-elif [[ $TEST_BUILD == 'true' ]] && [ -n "$TEST_BUILDFILE" ]; then
+elif [[ "$TEST_BUILD" == "true" ]] && [ -n "$TEST_BUILDFILE" ]; then
     echo "Got the Unofficial Build: $TEST_BUILDFILE"
     export TEST_BUILDIMG=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
-    if [[ $USE_SECRET_BOOTABLE == 'true' ]]; then
+    if [[ "$USE_SECRET_BOOTABLE" == "true" ]]; then
     cp $TEST_BUILDIMG recovery.img
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
@@ -172,7 +172,7 @@ fi
 # SEND NOTIFICATION TO MAINTAINERS, AVAILABLE FOR TEAM DEVS ONLY
 if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]] && [ ! -z "$TEST_BUILDFILE" ]; then
     echo -e "\nSending the Test build info in Maintainer Group\n"
-    if [[ $USE_SECRET_BOOTABLE == 'true' ]]; then
+    if [[ "$USE_SECRET_BOOTABLE" == "true" ]]; then
     TEST_LINK="${TEST_IT}"
     else
     TEST_LINK="https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/download/${VERSION}-test/$(echo $TEST_BUILDFILE | awk -F'[/]' '{print $NF}')"
@@ -181,7 +181,7 @@ if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]] && [ ! -z "
     if [[ ! -z $MAINTAINER ]]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Maintainer: ${MAINTAINER}\n\n"; fi
     if [[ ! -z $CHANGELOG ]]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Changelog:\n"${CHANGELOG}"\n\n"; fi
     MAINTAINER_MSG=${MAINTAINER_MSG}"Go to ${TEST_LINK} to download it."
-    if [[ $USE_SECRET_BOOTABLE == 'true' ]]; then
+    if [[ "$USE_SECRET_BOOTABLE" == "true" ]]; then
         cd vendor/utils; python3 telegram.py -c "-1001465331122" -M "$MAINTAINER_MSG" -m "HTML"; cd $DIR/work
     else
         cd vendor/utils; python3 telegram.py -c "-1001228903553" -M "$MAINTAINER_MSG" -m "HTML"; cd $DIR/work
