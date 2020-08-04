@@ -146,7 +146,7 @@ if [ -n "${BUILD_FILE_TAR}" ]; then
   cp ${BUILD_FILE_TAR} ${UPLOAD_PATH}
 fi
 
-if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ -n "$BUILDFILE" ]; then
+if [ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ] && [ -n "$BUILDFILE" ]; then
     echo "Got the Official Build: $BUILDFILE"
     sudo chmod a+x vendor/utils/pb_deploy.sh
     ./vendor/utils/pb_deploy.sh ${CODENAME} ${SFUserName} ${SFPassword} ${GITHUB_TOKEN} ${VERSION} ${MAINTAINER}
@@ -154,10 +154,10 @@ if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ -n "$BU
     export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     cp $BUILDFILE $UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Latest Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
-elif [[ "$TEST_BUILD" = "true" ]] && [ -n "$TEST_BUILDFILE" ]; then
+elif [ $TEST_BUILD = true' ] && [ -n "$TEST_BUILDFILE" ]; then
     echo "Got the Unofficial Build: $TEST_BUILDFILE"
     export TEST_BUILDIMG=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
-    if [[ "$USE_SECRET_BOOTABLE" = "true" ]]; then
+    if [ $USE_SECRET_BOOTABLE = 'true' ]; then
     cp $TEST_BUILDIMG recovery.img
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
