@@ -139,7 +139,7 @@ export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip
 export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
 export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
 
-mkdir ${UPLOAD_PATH}
+mkdir "${UPLOAD_PATH}"
 
 if [ -n "${BUILD_FILE_TAR}" ]; then
   echo "Samsung's Odin Tar available: $BUILD_FILE_TAR"
