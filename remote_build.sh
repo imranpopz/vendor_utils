@@ -154,7 +154,7 @@ if [ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ] && [ -n "$BUIL
     export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     cp $BUILDFILE $UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Latest Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
-elif [ $TEST_BUILD = true' ] && [ -n "$TEST_BUILDFILE" ]; then
+elif [ $TEST_BUILD = 'true' ] && [ -n "$TEST_BUILDFILE" ]; then
     echo "Got the Unofficial Build: $TEST_BUILDFILE"
     export TEST_BUILDIMG=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     if [ $USE_SECRET_BOOTABLE = 'true' ]; then
