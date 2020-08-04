@@ -170,7 +170,7 @@ else
 fi
 
 # SEND NOTIFICATION TO MAINTAINERS, AVAILABLE FOR TEAM DEVS ONLY
-if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]] && [[ ! -z $TEST_BUILDFILE ]]; then
+if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]] && [ ! -z "$TEST_BUILDFILE" ]; then
     echo -e "\nSending the Test build info in Maintainer Group\n"
     if [[ $USE_SECRET_BOOTABLE == 'true' ]]; then
     TEST_LINK="${TEST_IT}"
