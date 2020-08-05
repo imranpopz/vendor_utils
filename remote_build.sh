@@ -181,8 +181,8 @@ if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ ! -z "$
     TEST_LINK="https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/download/${VERSION}-test/$(echo $TEST_BUILDFILE | awk -F'[/]' '{print $NF}')"
     fi
     MAINTAINER_MSG="PitchBlack Recovery for \`${VENDOR}\` \`${CODENAME}\` is available Only For Testing Purpose\n\n"
-    if [[ ! -z $MAINTAINER ]]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Maintainer: ${MAINTAINER}\n\n"; fi
-    if [[ ! -z $CHANGELOG ]]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Changelog:\n"${CHANGELOG}"\n\n"; fi
+    if [ ! -z "$MAINTAINER" ]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Maintainer: ${MAINTAINER}\n\n"; fi
+    if [ ! -z "$CHANGELOG" ]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Changelog:\n"${CHANGELOG}"\n\n"; fi
     MAINTAINER_MSG=${MAINTAINER_MSG}"Go to ${TEST_LINK} to download it."
     if [[ "$USE_SECRET_BOOTABLE" = "true" ]]; then
         cd vendor/utils; python3 telegram.py -c "-1001465331122" -M "$MAINTAINER_MSG" -m "HTML"; cd $DIR/work
