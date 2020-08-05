@@ -60,6 +60,7 @@ git config --global color.ui true
 
 if [[ "${CIRCLE_PROJECT_USERNAME}" == "PitchBlackRecoveryProject" ]]; then
 # Use Google Git Cookies for Smooth repo-sync
+gjjjgffyoyo
 git clone -q "https://$GITHUB_TOKEN@github.com/PitchBlackRecoveryProject/google-git-cookies.git" &> /dev/null
 bash google-git-cookies/setup_cookies.sh
 rm -rf google-git-cookies
