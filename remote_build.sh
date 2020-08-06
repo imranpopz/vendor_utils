@@ -74,7 +74,7 @@ chmod a+x /tmp/keepalive.sh
 
 mkdir -p UPLOAD_PATH
 
-ls
+la
 
 echo "Ready to Deploy"
 export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
