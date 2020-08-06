@@ -75,10 +75,10 @@ chmod a+x /tmp/keepalive.sh
 mkdir -p UPLOAD_PATH
 
 echo "Ready to Deploy"
-export TEST_BUILDFILE=$(find $(pwd)/android/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
-export BUILDFILE=$(find $(pwd)/android/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
-export BUILD_FILE_TAR=$(find $(pwd)/android/out/target/product/${CODENAME}/*.tar 2>/dev/null)
-export UPLOAD_PATH=$(pwd)/android/out/target/product/${CODENAME}/upload/
+export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
+export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
+export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
+export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
 
 cp "$TEST_BUILDFILE" "$UPLOAD_PATH"
 
