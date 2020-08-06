@@ -79,7 +79,7 @@ export BUILDFILE="$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zi
 export BUILD_FILE_TAR="$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)"
 export UPLOAD_PATH="$(pwd)/out/target/product/${CODENAME}/upload/"
 
-cp TEST_BUILDFILE UPLOAD_PATH
+cp "${TEST_BUILDFILE}" "${UPLOAD_PATH}"
 
 
 # sync
