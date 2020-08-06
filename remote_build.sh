@@ -72,19 +72,6 @@ echo -e "Starting the CI Build Process...\n"
 curl -sL https://gist.github.com/rokibhasansagar/cf8669411a1a57ba40c3090cd5146cd9/raw/keepalive.sh -o /tmp/keepalive.sh
 chmod a+x /tmp/keepalive.sh
 
-mkdir -p UPLOAD_PATH
-
-la
-
-echo "Ready to Deploy"
-export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
-export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
-export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
-export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
-
-cp "$TEST_BUILDFILE" "$UPLOAD_PATH"
-
-
 # sync
 echo -e "Initializing PBRP repo sync..."
 repo init -q -u https://github.com/PitchBlackRecoveryProject/manifest_pb.git -b ${MANIFEST_BRANCH} --depth 1
@@ -149,11 +136,13 @@ mkdir -p .repo && mv manifests .repo/ && ln -s .repo/manifests/default.xml .repo
 kill -s SIGTERM $(cat /tmp/keepalive.pid)
 echo -e "\nYummy Recovery is Served.\n"
 
+mkdir UPLOAD_PATH
+
 echo "Ready to Deploy"
-export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
-export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
-export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
-export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
+export TEST_BUILDFILE="$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)"
+export BUILDFILE="$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)"
+export BUILD_FILE_TAR="$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)"
+export UPLOAD_PATH="$(pwd)/out/target/product/${CODENAME}/upload/"
 
 if [ -n "${BUILD_FILE_TAR}" ]; then
   echo "Samsung's Odin Tar available: $BUILD_FILE_TAR"
