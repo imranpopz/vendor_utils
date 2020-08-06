@@ -74,10 +74,11 @@ chmod a+x /tmp/keepalive.sh
 
 mkdir -p UPLOAD_PATH
 
-export TEST_BUILDFILE="$(find $(out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)"
-export BUILDFILE="$(find $(out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)"
-export BUILD_FILE_TAR="$(find $(out/target/product/${CODENAME}/*.tar 2>/dev/null)"
-export UPLOAD_PATH="$(out/target/product/${CODENAME}/upload/"
+echo "Ready to Deploy"
+export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
+export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
+export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
+export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
 
 cp "$TEST_BUILDFILE" "$UPLOAD_PATH"
 
@@ -147,10 +148,10 @@ kill -s SIGTERM $(cat /tmp/keepalive.pid)
 echo -e "\nYummy Recovery is Served.\n"
 
 echo "Ready to Deploy"
-export TEST_BUILDFILE="$(find $(out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)"
-export BUILDFILE="$(find $(out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)"
-export BUILD_FILE_TAR="$(find $(out/target/product/${CODENAME}/*.tar 2>/dev/null)"
-export UPLOAD_PATH="$(out/target/product/${CODENAME}/upload/"
+export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
+export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
+export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
+export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
 
 if [ -n "${BUILD_FILE_TAR}" ]; then
   echo "Samsung's Odin Tar available: $BUILD_FILE_TAR"
