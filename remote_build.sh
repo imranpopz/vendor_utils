@@ -75,7 +75,7 @@ chmod a+x /tmp/keepalive.sh
 # sync
 echo -e "Initializing PBRP repo sync..."
 repo init -q -u https://github.com/PitchBlackRecoveryProject/manifest_pb.git -b ${MANIFEST_BRANCH} --depth 1
-/tmp/keepalive.sh & repo sync -c -q --force-sync --no-clone-bundle --no-tags -j6 #THREADCOUNT is only 2 in remote docker
+/tmp/keepalive.sh & repo sync -c -q --force-sync --no-clone-bundle --no-tags -j$(nproc --all) #THREADCOUNT is only 2 in remote docker
 kill -s SIGTERM $(cat /tmp/keepalive.pid)
 
 # clean unneeded files
@@ -132,7 +132,7 @@ echo "Cleaning up the .repo, no use of it now"
 rm -rf .repo
 mkdir -p .repo && mv manifests .repo/ && ln -s .repo/manifests/default.xml .repo/manifest.xml
 
-/tmp/keepalive.sh & make -j6 recoveryimage
+/tmp/keepalive.sh & make -j$(nproc --all) recoveryimage
 kill -s SIGTERM $(cat /tmp/keepalive.pid)
 echo -e "\nYummy Recovery is Served.\n"
 
@@ -164,8 +164,8 @@ if [[ "${TEST_BUILD}" = "true" ]]; then
     cp "${TEST_BUILDIMG}" recovery.img
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
-    cp "${TEST_BUILDFILE}" UPLOAD_PATH
-    cp "${TEST_BUILDIMG}" UPLOAD_PATH
+    cp $TEST_BUILDFILE UPLOAD_PATH
+    cp $TEST_BUILDIMG UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
     fi
 else
