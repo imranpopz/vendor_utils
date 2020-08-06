@@ -178,7 +178,7 @@ if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ ! -z "$
     if [[ "$USE_SECRET_BOOTABLE" = "true" ]]; then
     TEST_LINK="${TEST_IT}"
     else
-    TEST_LINK="https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/download/${VERSION}-test/$(echo $TEST_BUILDFILE | awk -F'[/]' '{print $NF}')"
+    TEST_LINK="https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/download/${VERSION}-test/$(echo ${TEST_BUILDFILE} | awk -F'[/]' '{print $NF}')"
     fi
     MAINTAINER_MSG="PitchBlack Recovery for \`${VENDOR}\` \`${CODENAME}\` is available Only For Testing Purpose\n\n"
     if [ ! -z "$MAINTAINER" ]; then MAINTAINER_MSG=${MAINTAINER_MSG}"Maintainer: ${MAINTAINER}\n\n"; fi
