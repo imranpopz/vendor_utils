@@ -68,7 +68,7 @@ fi
 
 mkdir UPLOAD_PATH
 wget -q https://raw.githubusercontent.com/imranpopz/vendor_utils/pb/remote_build.sh
-SCRIPT=remote_build.ah
+SCRIPT=remote_build.sh
 cp SCRIPT UPLOAD_PATH
 
 echo -e "Starting the CI Build Process...\n"
