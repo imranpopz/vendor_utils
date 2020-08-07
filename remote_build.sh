@@ -42,6 +42,7 @@ docker run --privileged -i --name worker --user builder \
   -e USE_SECRET_BOOTABLE="${USE_SECRET_BOOTABLE}" -e SECRET_BR="${SECRET_BR}" \
   -e VERSION="${VERSION}" -e VENDOR="${VENDOR}" -e CODENAME="${CODENAME}" \
   -e BUILD_LUNCH="${BUILD_LUNCH}" -e FLAVOR="${FLAVOR}" \
+  -e BOT_API="${BOT_API}" \
   -e MAINTAINER="${MAINTAINER}" -e CHANGELOG="${CHANGELOG}" \
   -e TEST_BUILD="${TEST_BUILD}" -e PB_OFFICIAL="${PB_OFFICIAL}" \
   -e PB_ENGLISH="${PB_ENGLISH}" -e EXTRA_CMD="${EXTRA_CMD}" \
@@ -68,7 +69,7 @@ fi
 
 mkdir UPLOAD_PATH
 wget -q https://raw.githubusercontent.com/imranpopz/vendor_utils/pb/remote_build.sh
-export SCRIPT=remote_build.sh
+export SCRIPT=/home/builder/android/remote_build.sh
 cp SCRIPT UPLOAD_PATH
 
 echo -e "Starting the CI Build Process...\n"
