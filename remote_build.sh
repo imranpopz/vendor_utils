@@ -75,6 +75,7 @@ chmod a+x /tmp/keepalive.sh
 mkdir UPLOAD_PATH
 
 cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
+ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
 
 # sync
 echo -e "Initializing PBRP repo sync..."
