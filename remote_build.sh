@@ -66,11 +66,6 @@ bash google-git-cookies/setup_cookies.sh
 rm -rf google-git-cookies
 fi
 
-# SEND NOTIFICATION TO MAINTAINERS, AVAILABLE FOR TEAM DEVS ONLY
-if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ ! -z "$TEST_BUILD" ]; then
-echo -e "\nSending the Test build info in Maintainer Group\n"
-fi
-
 mkdir UPLOAD_PATH
     
 echo -e "Starting the CI Build Process...\n"
@@ -178,7 +173,7 @@ else
 fi
 
 # SEND NOTIFICATION TO MAINTAINERS, AVAILABLE FOR TEAM DEVS ONLY
-if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ ! -z "$TEST_BUILDFILE" ]; then
+if [[ "${CIRCLE_PROJECT_USERNAME}" = "PitchBlackRecoveryProject" ]] && [ ! -z "$TEST_BUILD" ]; then
     echo -e "\nSending the Test build info in Maintainer Group\n"
     if [[ "$USE_SECRET_BOOTABLE" = "true" ]]; then
     TEST_LINK="${TEST_IT}"
