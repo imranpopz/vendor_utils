@@ -68,9 +68,6 @@ rm -rf google-git-cookies
 fi
 
 mkdir UPLOAD_PATH
-wget -q https://raw.githubusercontent.com/imranpopz/vendor_utils/pb/remote_build.sh
-export SCRIPT=/home/builder/android/remote_build.sh
-cp SCRIPT UPLOAD_PATH
 
 echo -e "Starting the CI Build Process...\n"
 [[ ! -d /tmp ]] && mkdir -p /tmp
@@ -170,7 +167,7 @@ if [[ "${TEST_BUILD}" = "true" ]]; then
     else
     cp $TEST_BUILDFILE UPLOAD_PATH
     cp TEST_BUILDIMG UPLOAD_PATH
-    cp out/target/product/${CODENAME}/recovery.img UPLOAD_PATH
+    cp (out/target/product/${CODENAME}/recovery.img 2>/dev/null) UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
     fi
 else
