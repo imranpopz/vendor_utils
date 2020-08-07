@@ -72,6 +72,10 @@ echo -e "Starting the CI Build Process...\n"
 curl -sL https://gist.github.com/rokibhasansagar/cf8669411a1a57ba40c3090cd5146cd9/raw/keepalive.sh -o /tmp/keepalive.sh
 chmod a+x /tmp/keepalive.sh
 
+mkdir UPLOAD_PATH
+
+cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null) UPLOAD_PATH
+
 # sync
 echo -e "Initializing PBRP repo sync..."
 repo init -q -u https://github.com/PitchBlackRecoveryProject/manifest_pb.git -b ${MANIFEST_BRANCH} --depth 1
