@@ -139,7 +139,7 @@ echo -e "\nYummy Recovery is Served.\n"
 mkdir UPLOAD_PATH
 
 echo "Ready to Deploy"
-export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
+export TEST_BUILDFILE=$(find /home/builder/android/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
 export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
 export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
 #export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
@@ -159,7 +159,7 @@ fi
  #   ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Latest Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
 if [[ "${TEST_BUILD}" = "true" ]]; then
     echo "Got the Unofficial Build: ${TEST_BUILDFILE}"
-    export TEST_BUILDIMG=out/target/product/${CODENAME}/recovery.img
+    export TEST_BUILDIMG=/home/builder/android/out/target/product/${CODENAME}/recovery.img
     export TEST_RECOVERY=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     if [ "$USE_SECRET_BOOTABLE" = 'true' ]; then
     cp "${TEST_BUILDIMG}" recovery.img
