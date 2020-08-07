@@ -166,8 +166,7 @@ if [[ "${TEST_BUILD}" = "true" ]]; then
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
     cp $TEST_BUILDFILE UPLOAD_PATH
-    cp TEST_BUILDIMG UPLOAD_PATH
-    cp (out/target/product/${CODENAME}/recovery.img 2>/dev/null) UPLOAD_PATH
+    cp $TEST_BUILDIMG UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
     fi
 else
