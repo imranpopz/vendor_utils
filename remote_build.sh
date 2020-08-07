@@ -74,7 +74,7 @@ chmod a+x /tmp/keepalive.sh
 
 mkdir UPLOAD_PATH
 
-cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null) UPLOAD_PATH
+cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
 
 # sync
 echo -e "Initializing PBRP repo sync..."
