@@ -67,10 +67,7 @@ rm -rf google-git-cookies
 fi
 
 mkdir UPLOAD_PATH
-    cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip UPLOAD_PATH
-    cp out/target/product/${CODENAME}/recovery.img UPLOAD_PATH
-    ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
-  
+    
 echo -e "Starting the CI Build Process...\n"
 [[ ! -d /tmp ]] && mkdir -p /tmp
 # Make a keepalive shell so that it can bypass CI Termination on output freeze
@@ -141,10 +138,8 @@ mkdir -p .repo && mv manifests .repo/ && ln -s .repo/manifests/default.xml .repo
 kill -s SIGTERM $(cat /tmp/keepalive.pid)
 echo -e "\nYummy Recovery is Served.\n"
 
-mkdir UPLOAD_PATH
-
 echo "Ready to Deploy"
-export TEST_BUILDFILE=$(find /home/builder/android/out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null)
+export TEST_BUILDFILE=out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip
 export BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PBRP*-OFFICIAL.zip 2>/dev/null)
 export BUILD_FILE_TAR=$(find $(pwd)/out/target/product/${CODENAME}/*.tar 2>/dev/null)
 #export UPLOAD_PATH=$(pwd)/out/target/product/${CODENAME}/upload/
@@ -169,8 +164,8 @@ if [[ "${TEST_BUILD}" = "true" ]]; then
     cp "${TEST_BUILDIMG}" recovery.img
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
-    cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
-    cp out/target/product/${CODENAME}/recovery.img 2>/dev/null UPLOAD_PATH
+    cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip UPLOAD_PATH
+    cp out/target/product/${CODENAME}/recovery.img UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
     fi
 else
