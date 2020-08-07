@@ -159,13 +159,15 @@ fi
  #   ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Latest Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
 if [[ "${TEST_BUILD}" = "true" ]]; then
     echo "Got the Unofficial Build: ${TEST_BUILDFILE}"
-    export TEST_BUILDIMG=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
+    export TEST_BUILDIMG=out/target/product/${CODENAME}/recovery.img
+    export TEST_RECOVERY=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
     if [ "$USE_SECRET_BOOTABLE" = 'true' ]; then
     cp "${TEST_BUILDIMG}" recovery.img
     TEST_IT=$(curl -F'file=@recovery.img' https://0x0.st)
     else
     cp $TEST_BUILDFILE UPLOAD_PATH
     cp $TEST_BUILDIMG UPLOAD_PATH
+    cp $TEST_RECOVERY UPLOAD_PATH
     ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
     fi
 else
