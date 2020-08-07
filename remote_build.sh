@@ -66,16 +66,16 @@ bash google-git-cookies/setup_cookies.sh
 rm -rf google-git-cookies
 fi
 
+mkdir UPLOAD_PATH
+    cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
+    cp out/target/product/${CODENAME}/recovery.img 2>/dev/null UPLOAD_PATH
+    ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
+  
 echo -e "Starting the CI Build Process...\n"
 [[ ! -d /tmp ]] && mkdir -p /tmp
 # Make a keepalive shell so that it can bypass CI Termination on output freeze
 curl -sL https://gist.github.com/rokibhasansagar/cf8669411a1a57ba40c3090cd5146cd9/raw/keepalive.sh -o /tmp/keepalive.sh
 chmod a+x /tmp/keepalive.sh
-
-mkdir UPLOAD_PATH
-
-cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
-ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
 
 # sync
 echo -e "Initializing PBRP repo sync..."
@@ -171,7 +171,7 @@ if [[ "${TEST_BUILD}" = "true" ]]; then
     else
     cp out/target/product/${CODENAME}/PBRP*-UNOFFICIAL.zip 2>/dev/null UPLOAD_PATH
     cp out/target/product/${CODENAME}/recovery.img 2>/dev/null UPLOAD_PATH
-    ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
+    ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test UPLOAD_PATH
     fi
 else
     echo -e "Something Wrong with your build system.\nPlease fix it." && exit 1
